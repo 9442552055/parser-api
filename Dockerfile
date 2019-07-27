@@ -14,8 +14,21 @@ RUN apt install -y nodejs
 RUN node -v
 
 RUN mkdir /var/parser
-COPY ./ /var/parser
+#COPY ./ /var/parser
 WORKDIR /var/parser
+RUN curl -sL https://github.com/9442552055/parser-api/archive/v1.zip -o parser-v1.zip
+RUN curl -sL https://github.com/9442552055/parser-api/archive/v2.zip -o parser-v2.zip
+RUN apt-get install unzip
+RUN unzip parser-v1.zip
+RUN unzip parser-v2.zip
+
+RUN cd parser-api-v1;
 RUN npm install
+RUN cd ..
+
+RUN cd parser-api-v2;
+RUN npm install
+RUN cd ..
+
 EXPOSE 9095
-CMD [ "npm" ,"start" ]
+CMD [ "bash" ,"start.sh" ]
