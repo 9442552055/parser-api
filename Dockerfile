@@ -21,14 +21,18 @@ RUN curl -sL https://github.com/9442552055/parser-api/archive/v2.zip -o parser-v
 RUN apt-get install unzip
 RUN unzip parser-v1.zip
 RUN unzip parser-v2.zip
+RUN ls -la
 
-RUN cd parser-api-1;
+WORKDIR /var/parser/parser-api-1
+RUN ls -la
 RUN npm install
-RUN cd ..
 
-RUN cd parser-api-2;
+WORKDIR /var/parser/parser-api-2
+RUN ls -la
 RUN npm install
-RUN cd ..
+
+WORKDIR /var/parser
+COPY start.sh ./
 
 EXPOSE 9095
 CMD [ "bash" ,"start.sh" ]
