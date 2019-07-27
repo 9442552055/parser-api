@@ -1,0 +1,44 @@
+{
+  "name": "parser-service",
+  "version": "1.0.0",
+  "description": "parser service test",
+  "main": "./src/main.ts",
+  "scripts": {
+    "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
+    "build": "tsc && cp .env ./build/.env",
+    "prestart": "npm run build",
+    "start": "node --inspect=127.0.0.1:9229 build/main.js ",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tsc": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/9442552055/parser-api.git"
+  },
+  "keywords": [
+    "parse",
+    "node",
+    "js",
+    "typescript"
+  ],
+  "author": "arunmozhi srinivasan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/9442552055/parser-api/issues"
+  },
+  "homepage": "https://github.com/9442552055/parser-api#readme",
+  "devDependencies": {
+    "@compodoc/compodoc": "^1.1.10",
+    "tslint": "^5.18.0",
+    "typescript": "^3.5.3"
+  },
+  "dependencies": {
+    "@types/dotenv": "^6.1.1",
+    "@types/express": "^4.17.0",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "winston": "^3.2.1",
+    "winston-daily-rotate-file": "^3.10.0",
+    "winston-transport": "^4.3.0"
+  }
+}
