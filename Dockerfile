@@ -16,6 +16,7 @@ RUN node -v
 RUN mkdir /var/parser
 #COPY ./ /var/parser
 WORKDIR /var/parser
+RUN head -c 5 /dev/random > random_bytes 
 RUN curl -sL https://github.com/9442552055/parser-api/archive/v1.zip -o parser-v1.zip
 RUN curl -sL https://github.com/9442552055/parser-api/archive/v2.zip -o parser-v2.zip
 RUN apt-get install unzip
@@ -35,4 +36,6 @@ WORKDIR /var/parser
 COPY start.sh ./
 
 EXPOSE 9095
+EXPOSE 9096
+EXPOSE 9097
 CMD [ "bash" ,"start.sh" ]

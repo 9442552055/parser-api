@@ -7,7 +7,7 @@
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
     "build": "tsc && cp .env ./build/.env",
     "prestart": "npm run build",
-    "start": "node --inspect=127.0.0.1:9229 build/main.js ",
+    "start": "node --inspect=127.0.0.1:9229 build/main.js .env",
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc"
   },
