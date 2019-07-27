@@ -19,14 +19,14 @@ WORKDIR /var/parser
 RUN curl -sL https://github.com/9442552055/parser-api/archive/v1.zip -o parser-v1.zip
 RUN curl -sL https://github.com/9442552055/parser-api/archive/v2.zip -o parser-v2.zip
 RUN apt-get install unzip
-RUN unzip parser-v1.zip
-RUN unzip parser-v2.zip
+RUN unzip parser-1.zip
+RUN unzip parser-2.zip
 
-RUN cd parser-api-v1;
+RUN cd parser-api-1;
 RUN npm install
 RUN cd ..
 
-RUN cd parser-api-v2;
+RUN cd parser-api-2;
 RUN npm install
 RUN cd ..
 
