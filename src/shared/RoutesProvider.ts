@@ -1,25 +1,25 @@
 import bodyParser from "body-parser";
-import express from "express";
-import Base from "../core/BaseModule";
+// import express from "express";
+import Base from "../core/Base";
 import logger from "./Logger";
 
 // tslint:disable-next-line: no-namespace
 namespace Shared.Routes {
 
     class RoutesProvider {
-        private static handleRoute(route: Base.IRouteConfig): express.RequestHandler {
-            return (req: Base.Request, res: express.Response) => {
+        private static handleRoute(route: Base.IRouteConfig): Base.RequestHandler {
+            return (req: Base.Request, res: Base.Response) => {
                 route.handleRoute(req, (result: Base.IHTTPResult) => {
                     res.status(result.statusCode).send(result.data);
                 });
             };
         }
         public readonly modulePath: string;
-        public readonly module: express.Router;
+        public readonly module: Base.Router;
         private routes: Base.IRouteConfig[];
         // app: express.Application,
         constructor(modulePath: string, routes: Base.IRouteConfig[]) {
-            this.module = express.Router();
+            this.module = Base.Router();
             this.routes = routes;
             this.modulePath = modulePath;
             // app.use(modulePath, this.module);
@@ -38,8 +38,8 @@ namespace Shared.Routes {
 
     // tslint:disable-next-line: max-classes-per-file
     export class MiddlewaresLoader {
-        public static getMiddlewares(): express.RequestHandler[] {
-            const jsonParser: express.RequestHandler = bodyParser.json();
+        public static getMiddlewares(): Base.RequestHandler[] {
+            const jsonParser: Base.RequestHandler = bodyParser.json();
             // const textParser: express.RequestHandler = bodyParser.text({ type: "text/html" });
             // create application/x-www-form-urlencoded parser
             // const urlencodedParser: express.RequestHandler = bodyParser.urlencoded({ extended: false });

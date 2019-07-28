@@ -4,6 +4,12 @@ import Results from "../shared/Results";
 // tslint:disable-next-line: no-namespace
 namespace Base {
     export import Request = express.Request;
+    export import Response = express.Response;
+    export import Application = express.Application;
+    export import RequestHandler = express.RequestHandler;
+    export import Router = express.Router;
+
+    export function emodule() { return express(); }
 
     export interface IHTTPResult {
         statusCode: number;

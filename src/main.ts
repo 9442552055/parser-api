@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import express, { Router } from "express";
+import Base from "./core/Base";
 import modules from "./modules";
 import logger from "./shared/Logger";
 import Results from "./shared/Results";
@@ -7,10 +7,11 @@ import Routes from "./shared/RoutesProvider";
 
 class Main {
 
-    private rootApp: express.Application;
+    private rootApp: Base.Application;
 
     constructor() {
-        this.rootApp = express();
+        this.rootApp = Base.emodule();
+        // express();
     }
     public async bootstrap(): Promise<Main> {
         // 1.
@@ -26,7 +27,7 @@ class Main {
 
     private intialize(): void {
         const basePath: string = process.env.BASE_PATH || "";
-        const moduleRouter: express.Application = express();
+        const moduleRouter: Base.Application = Base.emodule();
         this.rootApp.use(basePath, moduleRouter);
         // load middlerwares
         Routes.MiddlewaresLoader
