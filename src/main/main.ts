@@ -1,33 +1,40 @@
+// configuration reader
 import dotenv from "dotenv";
-import Base from "./core/Base";
+// core frame that helps the app to be setup and run
+import Core from "../core";
+// Helpers from shared module
+import logger from "../shared/Logger";
+import Results from "../shared/Results";
+import Routes from "../shared/Router";
+// application related modules
 import modules from "./modules";
-import logger from "./shared/Logger";
-import Results from "./shared/Results";
-import Routes from "./shared/RoutesProvider";
 
-class Main {
+export default class Main {
 
-    private rootApp: Base.Application;
+    private rootApp: Core.Application;
 
     constructor() {
-        this.rootApp = Base.emodule();
         // express();
+        // removed direct dependency of express in main, instead used through core.Core
+        this.rootApp = Core.emodule();
     }
+
     public async bootstrap(): Promise<Main> {
-        // 1.
+        // 1. Do load configurations
         const configResult = await this.configure();
         if (configResult.isSuccess) {
-            // 2.
+            // 2. setup application
             this.intialize();
-            // 3.
+            // 3. run application
             const startResult = await this.start();
         }
         return this;
     }
 
     private intialize(): void {
+        // sub module
         const basePath: string = process.env.BASE_PATH || "";
-        const moduleRouter: Base.Application = Base.emodule();
+        const moduleRouter: Core.Application = Core.emodule();
         this.rootApp.use(basePath, moduleRouter);
         // load middlerwares
         Routes.MiddlewaresLoader
@@ -42,7 +49,7 @@ class Main {
             });
     }
 
-    private async configure(): Promise<Results.IResult<any>> {
+    private async configure(): Promise<Results.Result> {
         logger.info("configuration starts!");
         const args: string[] = process.argv.slice(2);
         return new Promise((r) => {
@@ -50,11 +57,13 @@ class Main {
             dotenv.config({
                 path: args[0] || ".env"
             });
+            // To Load transports if file logging enabled
+            logger.configure();
             r(new Results.SuccessResult("Configuration success!"));
         });
     }
 
-    private async start(): Promise<Results.IResult<any>> {
+    private async start(): Promise<Results.Result> {
         logger.info("application starts!");
         return new Promise((r) => {
             logger.info("start success!");
@@ -66,7 +75,3 @@ class Main {
         });
     }
 }
-
-const app: Main = new Main();
-
-app.bootstrap();

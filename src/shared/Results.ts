@@ -1,19 +1,13 @@
-
+import Base from "../base";
 // tslint:disable-next-line: no-namespace
 namespace Shared.Results {
-    export interface IResult<T> {
-        isSuccess: boolean;
-        data: T;
-        message: string;
-        error: object;
-    }
 
-    class Result<T> implements IResult<T> {
+    export class Result implements Base.IResult<any> {
         public isSuccess: boolean;
-        public data: T;
+        public data: any;
         public message: string;
         public error: object;
-        constructor(status: boolean, data: T, message: string, error: object) {
+        constructor(status: boolean, data: any, message: string, error: object) {
             this.isSuccess = status;
             this.data = data;
             this.message = message;
@@ -22,15 +16,15 @@ namespace Shared.Results {
     }
 
     // tslint:disable-next-line: max-classes-per-file
-    export class SuccessResult<T> extends Result<T> {
-        constructor(data: T, message?: string) {
+    export class SuccessResult extends Result {
+        constructor(data: any, message?: string) {
             message = message || "";
             super(true, data, message, {});
         }
     }
 
     // tslint:disable-next-line: max-classes-per-file
-    export class FailureResult extends Result<object> {
+    export class FailureResult extends Result {
         constructor(error: object, message: string) {
             super(false, {}, message, error);
         }

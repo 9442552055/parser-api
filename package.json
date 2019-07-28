@@ -2,12 +2,12 @@
   "name": "parser-service",
   "version": "1.0.0",
   "description": "parser service test",
-  "main": "./src/main.ts",
+  "main": "./src/boot.ts",
   "scripts": {
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
     "build": "tsc && cp .env ./build/.env",
     "prestart": "npm run build",
-    "start": "node --inspect=127.0.0.1:9229 build/main.js .env",
+    "start": "node --inspect=127.0.0.1:9229 build/boot.js .env",
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc"
   },

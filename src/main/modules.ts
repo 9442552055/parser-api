@@ -1,5 +1,5 @@
-import Base from "./core/Base";
-import ParserModule from "./parser/ParserModule";
+import Base from "../base";
+import ParserModule from "../parser/ParserModule";
 
 const modules: Base.IBaseModule[] = [
     new ParserModule()

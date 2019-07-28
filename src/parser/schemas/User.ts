@@ -1,5 +1,5 @@
-import IDeserializable from "./IDeserializable";
-import IUser from "./IUser";
+import IDeserializable from "../../base/IDeserializable";
+import IUser from "../../base/IUser";
 
 export class User implements IUser, IDeserializable<IUser> {
 

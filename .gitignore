@@ -65,3 +65,6 @@ build
 
 #logs
 log
+
+#ts build
+tsconfig.tsbuildinfo

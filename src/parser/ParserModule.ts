@@ -1,4 +1,4 @@
-import Base from "../core/Base";
+import Base from "../base";
 import parseHandler from "./handlers/parseHandler";
 
 export default class ParserModule implements Base.IBaseModule {

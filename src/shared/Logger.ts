@@ -2,22 +2,23 @@ import winston from "winston";
 import DailyRotateFile from "winston-daily-rotate-file";
 import * as Transport from "winston-transport";
 
-// interface IDailyRotateFileTransportInstance extends Transport {
-//     filename: string;
-//     dirname: string;
-//     logStream: NodeJS.WritableStream;
-//     options: DailyRotateFile.DailyRotateFileTransportOptions;
-
-//     new(options?: DailyRotateFile.DailyRotateFileTransportOptions): IDailyRotateFileTransportInstance;
-// }
 // tslint:disable-next-line: no-namespace
 namespace Shared {
     export class Logger {
 
         private logger: winston.Logger;
         constructor() {
+            this.logger = winston.createLogger({
+                transports: [new (winston.transports.Console)({
+                    level: process.env.LOG_LEVEL || "silly"
+                })]
+            });
+        }
 
-            const transports: Transport[] = [];
+        public configure() {
+            const transports: Transport[] = [new (winston.transports.Console)({
+                level: process.env.LOG_LEVEL || "silly"
+            })];
             if (process.env.LOG_IN_FILE) {
                 transports.push(new (DailyRotateFile)({
                     datePattern: "YYYY-MM-DD-HH",
@@ -28,15 +29,9 @@ namespace Shared {
                     zippedArchive: true
                 }));
             }
-
-            transports.push(new (winston.transports.Console)({
-                level: process.env.LOG_LEVEL || "silly"
-            }));
-
-            this.logger = winston.createLogger({
-                transports
-            });
+            this.logger.configure({ transports });
         }
+
         public error(...args: any[]): void {
             const data = { ...args };
             this.logger.error.apply(this.logger, [data]);
@@ -56,7 +51,7 @@ namespace Shared {
         }
         public silly(...args: any[]): void {
             const data = { ...args };
-            this.logger.error.apply(this.logger, [data]);
+            this.logger.silly.apply(this.logger, [data]);
         }
     }
 }
