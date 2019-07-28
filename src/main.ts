@@ -39,9 +39,12 @@ class Main {
 
     private async configure(): Promise<Results.IResult<any>> {
         logger.info("configuration starts!");
+        const args: string[] = process.argv.slice(2);
         return new Promise((r) => {
             logger.info("configuration success!");
-            dotenv.config();
+            dotenv.config({
+                path: args[0] || ".env"
+            });
             r(new Results.SuccessResult("Configuration success!"));
         });
     }

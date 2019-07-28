@@ -1,4 +1,4 @@
 set -ex
-cd /var/parser/parser-api-1 && npm start &
-cd /var/parser/parser-api-2 && npm start &
+node /var/parser/parser-api-1/build/main.js /var/parser/parser-api-1/build/.env & 
+node /var/parser/parser-api-2/build/main.js /var/parser/parser-api-2/build/.env & 
 nginx -g "daemon off;"

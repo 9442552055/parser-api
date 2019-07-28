@@ -27,10 +27,12 @@ RUN ls -la
 WORKDIR /var/parser/parser-api-1
 RUN ls -la
 RUN npm install
+RUN npm run build
 
 WORKDIR /var/parser/parser-api-2
 RUN ls -la
 RUN npm install
+RUN npm run build
 
 WORKDIR /var/parser
 COPY start.sh ./
