@@ -1,3 +1,4 @@
+import bodyParser from "body-parser";
 import express from "express";
 import Base from "../core/BaseModule";
 import logger from "./Logger";
@@ -32,6 +33,18 @@ namespace Shared.Routes {
             this.routes.forEach((route) => {
                 this.module[route.method](route.path, RoutesProvider.handleRoute(route));
             });
+        }
+    }
+
+    // tslint:disable-next-line: max-classes-per-file
+    export class MiddlewaresLoader {
+        public static getMiddlewares(): express.RequestHandler[] {
+            const jsonParser: express.RequestHandler = bodyParser.json();
+            // const textParser: express.RequestHandler = bodyParser.text({ type: "text/html" });
+            // create application/x-www-form-urlencoded parser
+            // const urlencodedParser: express.RequestHandler = bodyParser.urlencoded({ extended: false });
+
+            return [jsonParser];
         }
     }
 

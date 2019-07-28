@@ -28,6 +28,10 @@ class Main {
         const basePath: string = process.env.BASE_PATH || "";
         const moduleRouter: express.Application = express();
         this.rootApp.use(basePath, moduleRouter);
+        // load middlerwares
+        Routes.MiddlewaresLoader
+            .getMiddlewares()
+            .forEach((m) => moduleRouter.use(m));
         // load modules
         Routes.ModuleRoutesLoader
             .registerRoutesInModule(modules)
@@ -55,6 +59,7 @@ class Main {
             logger.info("start success!");
             const PORT: number = Number(process.env.APP_PORT);
             this.rootApp.listen(PORT, "0.0.0.0", (server: any) => {
+                logger.debug("server listening in ", PORT);
                 r(new Results.SuccessResult("Application start success!"));
             });
         });

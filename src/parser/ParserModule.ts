@@ -1,5 +1,8 @@
 import Base from "../core/BaseModule";
 import Results from "../shared/Results";
+import IUser from "./schemas/IUser";
+import User from "./schemas/User";
+import UserStringDeserializer from "./UserStringDeserializer";
 
 export default class ParserModule implements Base.IBaseModule {
 
@@ -15,8 +18,11 @@ export default class ParserModule implements Base.IBaseModule {
     }
 
     private parseHandler(req: Base.Request, callback: (result: Base.IHTTPResult) => void) {
+        // req.body
+        const userStringDeserializer: UserStringDeserializer = new UserStringDeserializer();
+        const user: IUser = userStringDeserializer.DeserializeString(req.body.data || "", new User());
         callback({
-            data: new Results.SuccessResult({}, "Parsing success"),
+            data: new Results.SuccessResult(user, "Parsing success"),
             statusCode: 200
         });
     }
