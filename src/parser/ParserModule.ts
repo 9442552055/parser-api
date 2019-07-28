@@ -1,5 +1,5 @@
 import Base from "../base";
-import parseHandler from "./handlers/parseHandler";
+import parseHandler from "./handlers/parseHandler.v2";
 
 export default class ParserModule implements Base.IBaseModule {
 
