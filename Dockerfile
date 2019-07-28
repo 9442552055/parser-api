@@ -39,5 +39,8 @@ COPY start.sh ./
 
 EXPOSE 9095
 EXPOSE 9096
+
+COPY ./nginx.proxy.conf /etc/nginx/conf.d/nginx.proxy_server.conf
 EXPOSE 9097
+
 CMD [ "bash" ,"start.sh" ]
