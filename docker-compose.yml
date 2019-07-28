@@ -1,0 +1,7 @@
+version: "2"
+services:
+    parser-api:
+        build: .
+        restart: always
+        ports:
+            - "9097:9097"
